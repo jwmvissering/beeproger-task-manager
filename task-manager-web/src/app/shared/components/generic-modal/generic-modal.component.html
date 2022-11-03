@@ -1,0 +1,7 @@
+<h1 class="modal-title">{{title}}</h1>
+<p [innerHTML]="description"></p>
+<div class="buttons mt-4 d-flex justify-content-between">
+  <button *ngIf="showCancelButton" class="btn btn-light" (click)="dialogRef.close()">{{cancelButtonText}}</button>
+  <button *ngIf="showContinueButton" class="btn btn-primary"
+          (click)="dialogRef.close(true)">{{continueButtonText}}</button>
+</div>

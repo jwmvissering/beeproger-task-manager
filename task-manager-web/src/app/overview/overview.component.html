@@ -1,0 +1,15 @@
+<div class="row gx-5">
+  <div class="col-4">
+    <div class="overview-list d-flex flex-column">
+      <div class="flex-grow-1 mb-4">
+        <app-overview-list [todoItems]="todoItems"></app-overview-list>
+      </div>
+      <div class="bottom">
+        <button routerLink="add" class="btn btn-primary">Taak toevoegen</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <router-outlet *ngIf="todoItems"></router-outlet>
+  </div>
+</div>

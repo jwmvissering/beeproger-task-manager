@@ -1,0 +1,20 @@
+@import "variables";
+
+.outer-container {
+  background: #dbdfe4; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #dbdfe4, #ffe1e4); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #dbdfe4, #e8d6d6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  min-height: 100%;
+  padding: 5vh 0;
+
+  .inner-container {
+    background-color: white;
+    border-radius: 15px;
+    height: 100%;
+    padding: 18px;
+
+    .app-title {
+      font-family: $title-font-family;
+    }
+  }
+}

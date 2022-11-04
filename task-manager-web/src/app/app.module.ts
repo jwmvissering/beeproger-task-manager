@@ -15,7 +15,7 @@ import localeNl from '@angular/common/locales/nl';
 import {
   CheckTodoItemButtonComponent
 } from './shared/components/check-todo-item-button/check-todo-item-button.component';
-import {EditTodoItemComponent} from './edit-todo-item/edit-todo-item.component';
+import {TodoItemFormComponent} from './edit-todo-item/todo-item-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {GenericModalComponent} from './shared/components/generic-modal/generic-modal.component';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -31,7 +31,7 @@ registerLocaleData(localeNl);
     NoItemsNotificationComponent,
     OverviewListComponent,
     CheckTodoItemButtonComponent,
-    EditTodoItemComponent,
+    TodoItemFormComponent,
     GenericModalComponent
   ],
   imports: [

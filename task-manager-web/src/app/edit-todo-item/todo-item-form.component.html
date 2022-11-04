@@ -5,14 +5,14 @@
     </div>
   </div>
   <div class="col">
-    <form *ngIf="form" [formGroup]="form">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="submitForm()">
       <input class="form-control mb-1" placeholder="Titel" formControlName="title">
       <textarea rows="6" class="form-control" placeholder="Beschrijving" formControlName="description"></textarea>
-    </form>
 
-    <div class="mt-4 d-flex gap-2">
-      <a routerLink=".." class="btn btn-light">Annuleren</a>
-      <button class="btn btn-primary">Opslaan</button>
-    </div>
+      <div class="mt-4 d-flex gap-2">
+        <a routerLink=".." class="btn btn-light">Annuleren</a>
+        <button type="submit" class="btn btn-primary">Opslaan</button>
+      </div>
+    </form>
   </div>
 </div>

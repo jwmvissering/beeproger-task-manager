@@ -18,7 +18,8 @@
 
     <div *ngIf="todoItem.completedAt">
       <hr class="my-2">
-      <div class="text-success fw-bolder">Deze taak is afgerond op {{todoItem.completedAt | date:'d MMMM y'}}</div>
+      <div class="text-success fw-bolder">Deze taak is afgerond
+        op {{todoItem.completedAt | date:'d MMMM y HH:mm uur'}}</div>
       <hr class="my-2">
     </div>
   </div>

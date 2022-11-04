@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TodoItemsService} from '../shared/services/todo-items.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TodoItemModel} from '../shared/models/todo-item.model';
 import {MatDialog} from '@angular/material/dialog';
 import {GenericModalComponent} from '../shared/components/generic-modal/generic-modal.component';
@@ -13,7 +13,7 @@ import {GenericModalComponent} from '../shared/components/generic-modal/generic-
 export class ItemDetailsComponent implements OnInit {
   todoItem: TodoItemModel;
 
-  constructor(private route: ActivatedRoute, private todoItemsService: TodoItemsService, private dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, private todoItemsService: TodoItemsService, private dialog: MatDialog, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -31,7 +31,9 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   toggleTodoItem(todoItem: TodoItemModel) {
-    this.todoItemsService.toggleTodoItem(todoItem);
+    this.todoItemsService.toggleTodoItem(todoItem).subscribe(item => {
+      Object.assign(todoItem, item);
+    });
   }
 
   deleteTodoItem() {
@@ -47,7 +49,11 @@ export class ItemDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // todo: delete
+        this.todoItemsService.deleteTodoItem(this.todoItem.id).subscribe(() => {
+          this.todoItemsService.loadTodoItems().subscribe(() => {
+            this.router.navigate(['..']).catch();
+          })
+        });
       }
     });
   }

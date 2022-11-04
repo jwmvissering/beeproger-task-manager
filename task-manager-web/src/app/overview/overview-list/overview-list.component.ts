@@ -19,6 +19,8 @@ export class OverviewListComponent {
   }
 
   toggleTodoItem(todoItem: TodoItemModel) {
-    this.todoItemsService.toggleTodoItem(todoItem);
+    this.todoItemsService.toggleTodoItem(todoItem).subscribe(item => {
+      Object.assign(todoItem, item);
+    });
   }
 }

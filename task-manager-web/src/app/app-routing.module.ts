@@ -4,7 +4,7 @@ import {OverviewComponent} from './overview/overview.component';
 import {LayoutContainerComponent} from './layout-container/layout-container.component';
 import {NoItemsNotificationComponent} from './no-items-notification/no-items-notification.component';
 import {ItemDetailsComponent} from './item-details/item-details.component';
-import {EditTodoItemComponent} from './edit-todo-item/edit-todo-item.component';
+import {TodoItemFormComponent} from './edit-todo-item/todo-item-form.component';
 
 const routes: Routes = [
   {
@@ -13,11 +13,11 @@ const routes: Routes = [
       {
         path: 'overview', component: OverviewComponent, children: [
           {path: '', pathMatch: 'full', component: NoItemsNotificationComponent},
-          {path: 'add', component: EditTodoItemComponent},
+          {path: 'add', component: TodoItemFormComponent},
           {
             path: ':id', children: [
               {path: '', pathMatch: 'full', component: ItemDetailsComponent},
-              {path: 'edit', component: EditTodoItemComponent}
+              {path: 'edit', component: TodoItemFormComponent}
             ]
           }
         ]

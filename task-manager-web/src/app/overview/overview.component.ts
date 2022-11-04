@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TodoItemsService} from '../shared/services/todo-items.service';
 import {TodoItemModel} from '../shared/models/todo-item.model';
+import {take} from 'rxjs';
 
 @Component({
   selector: 'app-overview',
@@ -14,7 +15,9 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getTodoItems();
+    this.todoItemsService.loadTodoItems().pipe(take(1)).subscribe(() => {
+      this.getTodoItems();
+    });
   }
 
   getTodoItems() {

@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class TodoItem extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title', 'description', 'completed', 'completed_at'
+    ];
+
+    protected $dates = [
+        'completed_at'
+    ];
+
+    protected $casts = [
+        'completed' => 'boolean'
+    ];
 }

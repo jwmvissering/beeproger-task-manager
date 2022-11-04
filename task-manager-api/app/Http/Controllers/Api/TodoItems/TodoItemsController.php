@@ -9,6 +9,7 @@ use App\Models\TodoItem;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class TodoItemsController extends Controller
@@ -33,7 +34,12 @@ class TodoItemsController extends Controller
     {
         try {
             $todoItem = new TodoItem;
-            $todoItem->fill($request->validated())->save();
+            $todoItem->fill($request->validated());
+            if (!empty($request->image)) {
+                $this->uploadFileAndFillTodoItem($request, $todoItem);
+            }
+
+            $todoItem->save();
 
             return new TodoItemResource($todoItem);
         } catch (Exception $exception) {
@@ -62,25 +68,18 @@ class TodoItemsController extends Controller
     public function update(TodoItemsRequest $request, TodoItem $todoItem): TodoItemResource
     {
         try {
-            $todoItem->fill($request->validated())->save();
+            $todoItem->fill($request->validated());
+            if (!empty($request->image)) {
+                $this->uploadFileAndFillTodoItem($request, $todoItem);
+            } else {
+                $todoItem->fill(['image' => null]);
+            }
+            $todoItem->save();
 
             return new TodoItemResource($todoItem);
         } catch (Exception $exception) {
             throw new HttpException(400, "Invalid data - {$exception->getMessage()}");
         }
-    }
-
-    /**
-     * Remove the resource.
-     *
-     * @param TodoItem $todoItem
-     * @return JsonResponse
-     */
-    public function destroy(TodoItem $todoItem): JsonResponse
-    {
-        $todoItem->delete();
-
-        return response()->json(null, 204);
     }
 
     /**
@@ -129,5 +128,34 @@ class TodoItemsController extends Controller
         } catch (Exception $exception) {
             throw new HttpException(400, "Invalid data - {$exception->getMessage()}");
         }
+    }
+
+    /**
+     * Remove the resource.
+     *
+     * @param TodoItem $todoItem
+     * @return JsonResponse
+     */
+    public function destroy(TodoItem $todoItem): JsonResponse
+    {
+        $todoItem->delete();
+
+        return response()->json(null, 204);
+    }
+
+    /**
+     * Upload image to public image folder and add the filePath to the model.
+     *
+     * @param TodoItemsRequest $request
+     * @param TodoItem $todoItem
+     * @return void
+     */
+    private static function uploadFileAndFillTodoItem(TodoItemsRequest $request, TodoItem $todoItem): void
+    {
+        $filesDir = '/uploads/images/';
+        $name = Str::slug($request->title) . '_' . time() . '.' . $request->image->getClientOriginalExtension();
+        $request->image->storeAs($filesDir, $name, 'public');
+        $filePath = $filesDir . $name;
+        $todoItem->fill(['image' => $filePath]);
     }
 }

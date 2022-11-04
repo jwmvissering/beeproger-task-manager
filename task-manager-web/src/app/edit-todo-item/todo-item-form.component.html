@@ -9,6 +9,19 @@
       <input class="form-control mb-1" placeholder="Titel" formControlName="title">
       <textarea rows="6" class="form-control" placeholder="Beschrijving" formControlName="description"></textarea>
 
+      <div *ngIf="previewUrl || todoItem?.image" class="mt-2 image-container">
+        <div class="hover-overlay">
+          <a (click)="deleteImage()" class="delete-icon-container cursor-pointer p-4">
+            <i class=" fa-solid fa-trash-can fa-2x"></i>
+          </a>
+        </div>
+        <app-todo-item-image [previewImage]="previewUrl" [imagePath]="todoItem?.image"></app-todo-item-image>
+      </div>
+      <label for="file-upload-btn" class="mt-1 custom-file-upload">
+        Afbeelding uploaden
+        <input type="file" id="file-upload-btn" (change)="onFileChange($event)" accept=".png,.jpg,.jpeg">
+      </label>
+
       <div class="mt-4 d-flex gap-2">
         <a routerLink=".." class="btn btn-light">Annuleren</a>
         <button type="submit" class="btn btn-primary">Opslaan</button>

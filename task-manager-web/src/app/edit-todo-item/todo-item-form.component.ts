@@ -12,6 +12,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class TodoItemFormComponent {
   todoItem: TodoItemModel;
   form: FormGroup;
+  fileData: File;
+  previewUrl: any;
 
   constructor(private route: ActivatedRoute, private todoItemsService: TodoItemsService, private fb: FormBuilder, private router: Router) {
     if (this.route.snapshot.params['id']) {
@@ -40,7 +42,29 @@ export class TodoItemFormComponent {
     })
   }
 
+  onFileChange(fileInput: any): void {
+    this.fileData = fileInput.target.files[0];
+    this.createImagePreview();
+  }
+
+  createImagePreview(): void {
+    const mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (event) => {
+      this.previewUrl = reader.result;
+    };
+  }
+
   submitForm(): void {
+    if (!this.form.valid) {
+      this.form.markAllAsTouched();
+      return;
+    }
     if (this.todoItem) {
       this.updateTodoItem();
     } else {
@@ -75,6 +99,9 @@ export class TodoItemFormComponent {
     const formData = new FormData();
     formData.append('title', formValues.title || '');
     formData.append('description', formValues.description || '');
+    if (this.fileData) {
+      formData.append('image', this.fileData);
+    }
     return formData;
   }
 
@@ -85,5 +112,11 @@ export class TodoItemFormComponent {
   }
 
   private handleError(): void {
+  }
+
+  deleteImage(): void {
+    this.fileData = null;
+    this.previewUrl = null;
+    this.todoItem.image = null;
   }
 }

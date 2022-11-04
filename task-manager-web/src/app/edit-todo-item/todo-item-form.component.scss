@@ -1,3 +1,5 @@
+@import "variables";
+
 .icon-container {
   width: 36px;
 
@@ -5,3 +7,53 @@
     font-size: 22px;
   }
 }
+
+.image-container {
+  height: 150px;
+  max-width: 250px;
+  position: relative;
+
+  &:hover {
+    .hover-overlay {
+      display: flex;
+      position: absolute;
+      z-index: 1;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(black, .3);
+    }
+  }
+
+  .hover-overlay {
+    display: none;
+
+    .delete-icon-container {
+      color: white;
+
+      &:hover {
+        color: $beeproger-red;
+      }
+    }
+  }
+}
+
+.custom-file-upload {
+  border: 1px solid $beeproger-red;
+  color: $beeproger-red;
+  border-radius: $btn-border-radius;
+  padding: 3px 8px;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    color: white;
+    background-color: $beeproger-red;
+  }
+}
+
+#file-upload-btn {
+  display: none;
+}
+

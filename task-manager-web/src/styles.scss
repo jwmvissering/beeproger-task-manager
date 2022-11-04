@@ -24,3 +24,13 @@ body, html {
 .btn-light {
   background-color: #e7e7e7;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.form-control {
+  &.ng-invalid.ng-touched {
+    border: 2px solid $danger;
+  }
+}

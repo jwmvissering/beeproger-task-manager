@@ -15,7 +15,7 @@ class TodoItem extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'completed', 'completed_at'
+        'title', 'description', 'completed', 'completed_at', 'image'
     ];
 
     protected $dates = [

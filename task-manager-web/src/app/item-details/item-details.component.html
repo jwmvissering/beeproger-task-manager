@@ -1,6 +1,6 @@
 <div *ngIf="todoItem" class="row">
   <div class="col-auto">
-    <app-check-todo-item-button [size]="28" [completed]="todoItem.completed" (clickEvent)="toggleTodoItem(todoItem)">
+    <app-check-todo-item-button [size]="28" [completed]="todoItem.completed" (clickEvent)="toggleTodoItem()">
     </app-check-todo-item-button>
   </div>
   <div class="col">
@@ -9,17 +9,21 @@
       <a routerLink="edit" class="edit-icon">
         <i class="ms-1 fa-solid fa-pen"></i>
       </a>
-      <i class="delete-icon fa-solid fa-trash-can" (click)="deleteTodoItem()"></i>
+      <i class="delete-icon cursor-pointer fa-solid fa-trash-can" (click)="deleteTodoItem()"></i>
     </div>
     <div class="mb-5 text-muted">
       <div class="mb-4"><i class="fa-regular fa-clock me-1"></i> {{todoItem.createdAt | date:'d MMMM y'}}</div>
       {{todoItem.description}}
     </div>
 
+    <div *ngIf="todoItem.image as imagePath" class="image-container mb-5">
+      <app-todo-item-image [imagePath]="imagePath" [alt]="todoItem.title"></app-todo-item-image>
+    </div>
+
     <div *ngIf="todoItem.completedAt">
       <hr class="my-2">
-      <div class="text-success fw-bolder">Deze taak is afgerond
-        op {{todoItem.completedAt | date:'d MMMM y HH:mm uur'}}</div>
+      <div class="text-success fw-bolder">
+        Deze taak is afgerond op {{todoItem.completedAt | date:'d MMMM y HH:mm uur'}}</div>
       <hr class="my-2">
     </div>
   </div>

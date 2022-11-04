@@ -19,6 +19,7 @@ import {TodoItemFormComponent} from './edit-todo-item/todo-item-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {GenericModalComponent} from './shared/components/generic-modal/generic-modal.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {TodoItemImageComponent} from './shared/components/todo-item-image/todo-item-image.component';
 
 registerLocaleData(localeNl);
 
@@ -32,7 +33,8 @@ registerLocaleData(localeNl);
     OverviewListComponent,
     CheckTodoItemButtonComponent,
     TodoItemFormComponent,
-    GenericModalComponent
+    GenericModalComponent,
+    TodoItemImageComponent
   ],
   imports: [
     BrowserModule,

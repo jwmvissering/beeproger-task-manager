@@ -30,9 +30,9 @@ export class ItemDetailsComponent implements OnInit {
     })
   }
 
-  toggleTodoItem(todoItem: TodoItemModel) {
-    this.todoItemsService.toggleTodoItem(todoItem).subscribe(item => {
-      Object.assign(todoItem, item);
+  toggleTodoItem() {
+    this.todoItemsService.toggleTodoItem(this.todoItem).subscribe(item => {
+      Object.assign(this.todoItem, item);
     });
   }
 

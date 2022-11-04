@@ -37,7 +37,7 @@ class TodoItemsRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'Please fill the title.'
+            'title.required' => 'A title is required.'
         ];
     }
 

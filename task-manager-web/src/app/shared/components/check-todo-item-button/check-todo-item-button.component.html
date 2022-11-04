@@ -1,4 +1,5 @@
 <div class="check-icon-container" (click)="clickEvent.emit()">
-  <i class="check-icon p-1" [style.font-size]="size + 'px'" [ngClass]="getImageClass" (mouseover)="hovering = true"
+  <i class="check-icon p-1 cursor-pointer" [style.font-size]="size + 'px'" [ngClass]="getImageClass"
+     (mouseover)="hovering = true"
      (mouseout)="hovering = false"></i>
 </div>

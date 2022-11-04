@@ -10,9 +10,13 @@
 
 .delete-icon {
   color: $gray-600;
-  cursor: pointer;
 
   &:hover {
     color: $beeproger-red;
   }
+}
+
+.image-container {
+  height: 250px;
+  max-width: 500px;
 }

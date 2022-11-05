@@ -14,6 +14,7 @@ export class TodoItemFormComponent {
   form: FormGroup;
   fileData: File;
   previewUrl: any;
+  fileDeleted = false;
 
   constructor(private route: ActivatedRoute, private todoItemsService: TodoItemsService, private fb: FormBuilder, private router: Router) {
     if (this.route.snapshot.params['id']) {
@@ -38,7 +39,8 @@ export class TodoItemFormComponent {
   private createForm(item?: TodoItemModel): void {
     this.form = this.fb.group({
       title: this.fb.control(item ? item.title : '', [Validators.required]),
-      description: this.fb.control([item ? item.description : '']),
+      description: this.fb.control(item ? item.description : ''),
+      priority: this.fb.control(item ? item.priority : '')
     })
   }
 
@@ -58,6 +60,13 @@ export class TodoItemFormComponent {
     reader.onload = (event) => {
       this.previewUrl = reader.result;
     };
+  }
+
+  deleteImage(): void {
+    this.fileData = null;
+    this.previewUrl = null;
+    this.todoItem.image = null; // todo: dont do this
+    this.fileDeleted = true;
   }
 
   submitForm(): void {
@@ -99,9 +108,13 @@ export class TodoItemFormComponent {
     const formData = new FormData();
     formData.append('title', formValues.title || '');
     formData.append('description', formValues.description || '');
+    formData.append('priority', formValues.priority || '');
     if (this.fileData) {
       formData.append('image', this.fileData);
+    } else if (this.fileDeleted) {
+      formData.append('image', '');
     }
+
     return formData;
   }
 
@@ -112,11 +125,5 @@ export class TodoItemFormComponent {
   }
 
   private handleError(): void {
-  }
-
-  deleteImage(): void {
-    this.fileData = null;
-    this.previewUrl = null;
-    this.todoItem.image = null;
   }
 }

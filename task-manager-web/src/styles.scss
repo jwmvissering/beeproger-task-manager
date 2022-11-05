@@ -34,3 +34,11 @@ body, html {
     border: 2px solid $danger;
   }
 }
+
+.cdk-overlay-pane .mat-dialog-container {
+  padding: 15px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}

@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('todoItems', TodoItemsController::class);
 Route::patch('todoItems/markAsComplete/{todoItem}', [TodoItemsController::class, 'markAsComplete']);
 Route::patch('todoItems/markAsIncomplete/{todoItem}', [TodoItemsController::class, 'markAsIncomplete']);
+Route::post('todoItems/saveItemOrder', [TodoItemsController::class, 'saveItemOrder']);

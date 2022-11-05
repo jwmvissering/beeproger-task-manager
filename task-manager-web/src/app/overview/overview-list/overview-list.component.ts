@@ -16,6 +16,7 @@ export class OverviewListComponent {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.todoItems, event.previousIndex, event.currentIndex);
+    this.todoItemsService.saveItemOrder(this.todoItems.map(item => item.id)).subscribe();
   }
 
   toggleTodoItem(todoItem: TodoItemModel) {

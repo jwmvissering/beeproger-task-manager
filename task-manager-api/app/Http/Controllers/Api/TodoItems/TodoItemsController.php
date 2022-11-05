@@ -8,6 +8,7 @@ use App\Http\Resources\TodoItemResource;
 use App\Models\TodoItem;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -21,7 +22,7 @@ class TodoItemsController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        return TodoItemResource::collection(TodoItem::all()->sortByDesc('created_at'));
+        return TodoItemResource::collection(TodoItem::all()->sortBy('order'));
     }
 
     /**
@@ -36,7 +37,8 @@ class TodoItemsController extends Controller
             $todoItem = new TodoItem;
             $todoItem->fill($request->validated());
             if (!empty($request->image)) {
-                $this->uploadFileAndFillTodoItem($request, $todoItem);
+                $filePath = $this->uploadImageAndReturnFilePath($request, $todoItem);
+                $todoItem->fill(['image' => $filePath]);
             }
 
             $todoItem->save();
@@ -69,10 +71,11 @@ class TodoItemsController extends Controller
     {
         try {
             $todoItem->fill($request->validated());
-            if (!empty($request->image)) {
-                $this->uploadFileAndFillTodoItem($request, $todoItem);
-            } else {
+            if (isset($request->image) && $request->image === null) {
                 $todoItem->fill(['image' => null]);
+            } else if (!empty($request->image)) {
+                $filePath = $this->uploadImageAndReturnFilePath($request);
+                $todoItem->fill(['image' => $filePath]);
             }
             $todoItem->save();
 
@@ -144,18 +147,37 @@ class TodoItemsController extends Controller
     }
 
     /**
+     * Save the order of the items.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function saveItemOrder(Request $request): JsonResponse
+    {
+        try {
+            $ids = $request->get('ids');
+            foreach ($ids as $i => $id) {
+                $todoItem = TodoItem::find($id);
+                $todoItem->update(['order' => $i]);
+                $todoItem->save();
+            }
+            return response()->json('Item order successfully changed', 200);
+        } catch (Exception $exception) {
+            throw new HttpException(400, $exception->getMessage());
+        }
+    }
+
+    /**
      * Upload image to public image folder and add the filePath to the model.
      *
      * @param TodoItemsRequest $request
-     * @param TodoItem $todoItem
-     * @return void
+     * @return string
      */
-    private static function uploadFileAndFillTodoItem(TodoItemsRequest $request, TodoItem $todoItem): void
+    private function uploadImageAndReturnFilePath(TodoItemsRequest $request): string
     {
         $filesDir = '/uploads/images/';
         $name = Str::slug($request->title) . '_' . time() . '.' . $request->image->getClientOriginalExtension();
         $request->image->storeAs($filesDir, $name, 'public');
-        $filePath = $filesDir . $name;
-        $todoItem->fill(['image' => $filePath]);
+        return $filesDir . $name;
     }
 }

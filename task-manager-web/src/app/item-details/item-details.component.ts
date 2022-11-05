@@ -46,6 +46,7 @@ export class ItemDetailsComponent implements OnInit {
       },
       width: '350px',
       maxWidth: '90vw',
+      maxHeight: '90vh'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -55,6 +56,18 @@ export class ItemDetailsComponent implements OnInit {
           })
         });
       }
+    });
+  }
+
+  openImageModal() {
+    this.dialog.open(GenericModalComponent, {
+      data: {
+        image: this.todoItem.image,
+        cancelButtonText: 'Sluiten',
+        showContinueButton: false
+      },
+      width: '600px',
+      maxWidth: '90vw'
     });
   }
 }

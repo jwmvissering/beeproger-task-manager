@@ -1,4 +1,4 @@
-<div cdkDropList class="overview-list" (cdkDropListDropped)="drop($event)">
+<div *ngIf="todoItems?.length; else noTasks" cdkDropList class="overview-list" (cdkDropListDropped)="drop($event)">
   <div *ngFor="let todoItem of todoItems" class="item-container" [class.completed]="todoItem.completed"
        cdkDrag cdkDragLockAxis="y">
     <div class="drag-placeholder" *cdkDragPlaceholder></div>
@@ -15,3 +15,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #noTasks>
+  <img src="assets/images/curved-arrow.svg" alt="Voeg je eerste taak toe" height="125" class="arrow-image">
+</ng-template>

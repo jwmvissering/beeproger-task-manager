@@ -16,7 +16,27 @@
   }
 }
 
-.image-container {
-  height: 250px;
-  max-width: 500px;
+.image-container { // todo: duplicate code
+  height: 150px;
+  max-width: 250px;
+  position: relative;
+
+  &:hover {
+    .hover-overlay {
+      display: flex;
+      position: absolute;
+      z-index: 1;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(black, .3);
+    }
+  }
+
+  .hover-overlay {
+    display: none;
+    color: white;
+    text-decoration: none;
+  }
 }

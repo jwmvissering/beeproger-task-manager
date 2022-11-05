@@ -20,6 +20,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {GenericModalComponent} from './shared/components/generic-modal/generic-modal.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {TodoItemImageComponent} from './shared/components/todo-item-image/todo-item-image.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 registerLocaleData(localeNl);
 
@@ -43,6 +44,7 @@ registerLocaleData(localeNl);
     HttpClientModule,
     DragDropModule,
     MatDialogModule,
+    MatRadioModule,
     ReactiveFormsModule
   ],
   providers: [

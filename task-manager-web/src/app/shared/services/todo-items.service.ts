@@ -82,11 +82,14 @@ export class TodoItemsService {
   markAsInComplete(todoItem: TodoItemModel): Observable<TodoItemModel> {
     return this.http.post<RequestObject<TodoItemModel>>(environment.apiUrl + this.entityPath + '/markAsIncomplete/' + todoItem.id, {}, {
       params: {_method: 'PATCH'} //todo: put of patch?
-    })
-      .pipe(
-        map((data: RequestObject<TodoItemModel>) => data.data),
-        map((todoItem: any) => new TodoItemModel(todoItem))
-      );
+    }).pipe(
+      map((data: RequestObject<TodoItemModel>) => data.data),
+      map((todoItem: any) => new TodoItemModel(todoItem))
+    );
+  }
+
+  saveItemOrder(ids: string[]): Observable<void> {
+    return this.http.post<any>(environment.apiUrl + this.entityPath + '/saveItemOrder', {ids});
   }
 
   deleteTodoItem(id: string) {

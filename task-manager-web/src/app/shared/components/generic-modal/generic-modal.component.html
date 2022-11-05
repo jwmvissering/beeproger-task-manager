@@ -1,5 +1,8 @@
 <h1 class="modal-title">{{title}}</h1>
-<p [innerHTML]="description"></p>
+<p *ngIf="description" [innerHTML]="description"></p>
+<div *ngIf="image" class="image-container">
+  <app-todo-item-image [imagePath]="image" [alt]="title"></app-todo-item-image>
+</div>
 <div class="buttons mt-4 d-flex justify-content-between">
   <button *ngIf="showCancelButton" class="btn btn-light" (click)="dialogRef.close()">{{cancelButtonText}}</button>
   <button *ngIf="showContinueButton" class="btn btn-primary"

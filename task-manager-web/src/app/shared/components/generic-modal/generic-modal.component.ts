@@ -8,6 +8,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class GenericModalComponent {
   title: string;
+  image: string;
   description: string;
   continueButtonText: string;
   cancelButtonText: string;
@@ -18,6 +19,7 @@ export class GenericModalComponent {
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.title = data.title;
     this.description = data.description;
+    this.image = data.image;
     this.continueButtonText = data.continueButtonText || 'Doorgaan';
     this.cancelButtonText = data.cancelButtonText || 'Annuleren';
     this.showCancelButton = typeof data.showCancelButton === 'boolean' ? data.showCancelButton : true;

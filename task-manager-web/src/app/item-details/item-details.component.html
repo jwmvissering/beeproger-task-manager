@@ -11,12 +11,23 @@
       </a>
       <i class="delete-icon cursor-pointer fa-solid fa-trash-can" (click)="deleteTodoItem()"></i>
     </div>
-    <div class="mb-5 text-muted">
-      <div class="mb-4"><i class="fa-regular fa-clock me-1"></i> {{todoItem.createdAt | date:'d MMMM y'}}</div>
+    <div class="d-flex gap-4 mb-4">
+      <div class="text-muted">
+        <i class="fa-solid me-1"
+           [ngClass]="[todoItem.priorityIconClass, todoItem.priorityColor]"></i> {{todoItem.priorityLabel}}
+      </div>
+      <div class="text-muted">
+        <i class="fa-regular fa-clock me-1"></i> {{todoItem.createdAt | date:'d MMMM y'}}
+      </div>
+    </div>
+    <div class="mb-4">
       {{todoItem.description}}
     </div>
 
     <div *ngIf="todoItem.image as imagePath" class="image-container mb-5">
+      <a (click)="openImageModal()" class="hover-overlay cursor-pointer p-4">
+        <i class="fa-solid fa-magnifying-glass fa-2x"></i>
+      </a>
       <app-todo-item-image [imagePath]="imagePath" [alt]="todoItem.title"></app-todo-item-image>
     </div>
 

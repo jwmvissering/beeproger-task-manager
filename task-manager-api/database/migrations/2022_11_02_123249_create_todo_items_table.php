@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('priority')->nullable();
+            $table->float('order')->nullable();
             $table->boolean('completed')->default(0);
             $table->dateTime('completed_at')->nullable();
         });

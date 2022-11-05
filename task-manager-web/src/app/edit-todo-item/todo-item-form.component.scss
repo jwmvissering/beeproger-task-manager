@@ -28,22 +28,17 @@
 
   .hover-overlay {
     display: none;
-
-    .delete-icon-container {
-      color: white;
-
-      &:hover {
-        color: $beeproger-red;
-      }
-    }
+    color: white;
+    text-decoration: none;
   }
 }
 
-.custom-file-upload {
+.file-upload-btn {
   border: 1px solid $beeproger-red;
   color: $beeproger-red;
   border-radius: $btn-border-radius;
-  padding: 3px 8px;
+  padding: 2px 8px 3px;
+  font-size: .9rem;
   cursor: pointer;
   user-select: none;
 

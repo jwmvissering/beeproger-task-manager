@@ -25,7 +25,10 @@ class TodoItemsRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'image' => 'nullable|image',
+            'order' => 'nullable|float',
+            'priority' => 'in:high,medium,low'
         ];
     }
 
@@ -37,7 +40,8 @@ class TodoItemsRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'A title is required.'
+            'title.required' => 'A title is required.',
+            'priority.in' => 'Priority must be high, medium,or low'
         ];
     }
 

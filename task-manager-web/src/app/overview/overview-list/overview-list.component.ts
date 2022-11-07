@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {TodoItemModel} from '../../shared/models/todo-item.model';
 import {TodoItemsService} from '../../shared/services/todo-items.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-overview-list',
@@ -11,7 +12,7 @@ import {TodoItemsService} from '../../shared/services/todo-items.service';
 export class OverviewListComponent {
   @Input() todoItems: TodoItemModel[];
 
-  constructor(private todoItemsService: TodoItemsService) {
+  constructor(private todoItemsService: TodoItemsService, private router: Router, private route: ActivatedRoute) {
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -23,5 +24,9 @@ export class OverviewListComponent {
     this.todoItemsService.toggleTodoItem(todoItem).subscribe(item => {
       Object.assign(todoItem, item);
     });
+  }
+
+  itemIsActive(id: string) {
+    return this.route.firstChild.snapshot.params['id'] == id;
   }
 }

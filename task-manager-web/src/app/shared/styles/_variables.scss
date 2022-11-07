@@ -5,11 +5,13 @@ $beeproger-black: #1c1c1c;
 
 $primary: $beeproger-red;
 $success: #00a489;
-$title-font-family: 'Heebo', sans-serif;
-
+$warning: #ffca28;
+$danger: $beeproger-red;
+$priorities: "low" $success #f2faf9 #d9f1ed, "medium" $warning #fdfcf3 #fff7dc, "high" $danger #fef6f7 #fce4e7;
 
 // Bootstrap
 $enable-smooth-scroll: false;
+$title-font-family: 'Heebo', sans-serif;
 $font-family-base: 'Inter', sans-serif;
 $body-color: $beeproger-black;
 $btn-padding-y: 5px;
@@ -29,18 +31,11 @@ $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #212529;
 
-//$container-max-widths: (
-//  sm: 540px,
-//  md: 720px,
-//  lg: 960px,
-//  xl: 1140px,
-//  xxl: 1440px
-//);
-//$grid-breakpoints: (
-//  xs: 0,
-//  sm: 576px,
-//  md: 768px,
-//  lg: 992px,
-//  xl: 1200px,
-//  xxl: 1500px
-//);
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1500px
+);

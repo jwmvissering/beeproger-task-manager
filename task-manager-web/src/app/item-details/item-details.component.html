@@ -1,4 +1,4 @@
-<div *ngIf="todoItem" class="row">
+<div *ngIf="todoItem" class="row gx-2 gx-lg-4">
   <div class="col-auto">
     <app-check-todo-item-button [size]="28" [completed]="todoItem.completed" (clickEvent)="toggleTodoItem()">
     </app-check-todo-item-button>
@@ -11,12 +11,12 @@
       </a>
       <i class="delete-icon cursor-pointer fa-solid fa-trash-can" (click)="deleteTodoItem()"></i>
     </div>
-    <div class="d-flex gap-4 mb-4">
-      <div class="text-muted">
+    <div class="row gx-4 mb-4">
+      <div class="col-auto text-muted order-2 order-lg-1">
         <i class="fa-solid me-1"
            [ngClass]="[todoItem.priorityIconClass, todoItem.priorityColor]"></i> {{todoItem.priorityLabel}}
       </div>
-      <div class="text-muted">
+      <div class="col-auto text-muted order-1 order-lg-2">
         <i class="fa-regular fa-clock me-1"></i> {{todoItem.createdAt | date:'d MMMM y'}}
       </div>
     </div>
@@ -24,7 +24,7 @@
       {{todoItem.description}}
     </div>
 
-    <div *ngIf="todoItem.image as imagePath" class="image-container mb-5">
+    <div *ngIf="todoItem.image as imagePath" class="todo-item-image-container mb-5">
       <a (click)="openImageModal()" class="hover-overlay cursor-pointer p-4">
         <i class="fa-solid fa-magnifying-glass fa-2x"></i>
       </a>

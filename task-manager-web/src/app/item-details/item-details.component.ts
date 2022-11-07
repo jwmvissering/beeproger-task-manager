@@ -67,7 +67,8 @@ export class ItemDetailsComponent implements OnInit {
         showContinueButton: false
       },
       width: '600px',
-      maxWidth: '90vw'
+      maxWidth: '90vw',
+      maxHeight: '90vh'
     });
   }
 }

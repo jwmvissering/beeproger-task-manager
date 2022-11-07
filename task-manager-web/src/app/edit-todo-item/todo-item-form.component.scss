@@ -8,31 +8,6 @@
   }
 }
 
-.image-container {
-  height: 150px;
-  max-width: 250px;
-  position: relative;
-
-  &:hover {
-    .hover-overlay {
-      display: flex;
-      position: absolute;
-      z-index: 1;
-      height: 100%;
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-      background-color: rgba(black, .3);
-    }
-  }
-
-  .hover-overlay {
-    display: none;
-    color: white;
-    text-decoration: none;
-  }
-}
-
 .file-upload-btn {
   border: 1px solid $beeproger-red;
   color: $beeproger-red;
@@ -51,4 +26,3 @@
 #file-upload-btn {
   display: none;
 }
-

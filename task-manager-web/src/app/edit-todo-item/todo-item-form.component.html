@@ -8,6 +8,9 @@
     <form *ngIf="form" [formGroup]="form" (ngSubmit)="submitForm()">
       <label for="title" class="text-muted small">Titel</label>
       <input id="title" class="form-control mb-1" placeholder="Titel" formControlName="title">
+      <div *ngIf="form.get('title').errors && form.get('title').touched" class="text-danger small mb-2">Vul een titel
+        in
+      </div>
 
       <label for="description" class="text-muted small">Beschrijving</label>
       <textarea id="description" rows="6" class="form-control" placeholder="Beschrijving"
@@ -23,7 +26,7 @@
       </div>
 
       <label class="text-muted small">Afbeelding</label>
-      <div *ngIf="previewUrl || todoItem?.image" class="mb-1 image-container">
+      <div *ngIf="!imageDeleted && (previewUrl || todoItem?.image)" class="mb-1 todo-item-image-container">
         <a (click)="deleteImage()" class="hover-overlay cursor-pointer p-4">
           <i class="fa-solid fa-trash-can fa-2x"></i>
         </a>

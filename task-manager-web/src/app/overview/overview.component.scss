@@ -1,3 +1,9 @@
+@import "variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+
 .overview-list {
-  min-height: 300px;
+  height: 100%;
+  @include media-breakpoint-up('lg') {
+    min-height: 300px;
+  }
 }

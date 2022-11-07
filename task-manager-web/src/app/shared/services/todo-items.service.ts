@@ -25,14 +25,24 @@ export class TodoItemsService {
       .pipe(
         map((data: RequestObject<TodoItemModel[]>) => data.data),
         map((data: TodoItemModel[]) => data.map(todoItem => new TodoItemModel(todoItem))),
-        tap((data: TodoItemModel[]) => this.cachedTodoItems = data), // todo: remove this
-        tap((data: TodoItemModel[]) => this.todoItems.next(data))
+        tap((data: TodoItemModel[]) => this.cachedTodoItems = data),
+        tap((data: TodoItemModel[]) => this.todoItems.next(this.cachedTodoItems))
       );
   }
 
   getTodoItem(id: string): Observable<TodoItemModel> {
     const todoItem = this.cachedTodoItems.find((item) => item.id == id);
     return of(todoItem);
+  }
+
+  lowestOrderOfTodoItems(): number {
+    if (!this.cachedTodoItems?.length) {
+      return 1;
+    }
+    const todoItem = this.cachedTodoItems.reduce((a, b) => {
+      return a.order < b.order ? a : b;
+    })
+    return todoItem.order;
   }
 
   createTodoItem(data: FormData): Observable<TodoItemModel> {
@@ -81,7 +91,7 @@ export class TodoItemsService {
 
   markAsInComplete(todoItem: TodoItemModel): Observable<TodoItemModel> {
     return this.http.post<RequestObject<TodoItemModel>>(environment.apiUrl + this.entityPath + '/markAsIncomplete/' + todoItem.id, {}, {
-      params: {_method: 'PATCH'} //todo: put of patch?
+      params: {_method: 'PATCH'}
     }).pipe(
       map((data: RequestObject<TodoItemModel>) => data.data),
       map((todoItem: any) => new TodoItemModel(todoItem))

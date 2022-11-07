@@ -1,13 +1,16 @@
-<div *ngIf="todoItems?.length; else noTasks" cdkDropList class="overview-list" (cdkDropListDropped)="drop($event)">
-  <div *ngFor="let todoItem of todoItems" class="item-container" [class.completed]="todoItem.completed"
-       cdkDrag cdkDragLockAxis="y">
+<div cdkDropList class="overview-list" (cdkDropListDropped)="drop($event)">
+  <div *ngFor="let todoItem of todoItems" class="item-container d-flex align-items-center"
+       [class.completed]="todoItem.completed"
+       [class.active]="itemIsActive(todoItem.id)" cdkDrag cdkDragLockAxis="y"
+       [ngClass]="'priority-' + todoItem.priority">
+    <div class="selected-label">Geselecteerd</div>
     <div class="drag-placeholder" *cdkDragPlaceholder></div>
     <a [routerLink]="[todoItem.id]" class="item-link d-flex flex-fill gap-3 align-items-center">
       <app-check-todo-item-button [completed]="todoItem.completed" (clickEvent)="toggleTodoItem(todoItem)">
       </app-check-todo-item-button>
       <div class="flex-grow-1">
-        <div class="title fw-bold">{{todoItem.title}}</div>
-        <div class="date text-muted">{{todoItem.createdAt | date:'d MMMM y'}}</div>
+        <div class="title">{{todoItem.title}}</div>
+        <div class="date small text-muted">{{todoItem.createdAt | date:'d MMMM y'}}</div>
       </div>
     </a>
     <div class="drag-icon-container d-flex align-items-center align-self-stretch" cdkDragHandle>
@@ -15,7 +18,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #noTasks>
-  <img src="assets/images/curved-arrow.svg" alt="Voeg je eerste taak toe" height="125" class="arrow-image">
-</ng-template>

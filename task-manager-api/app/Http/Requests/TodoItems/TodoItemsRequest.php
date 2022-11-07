@@ -27,7 +27,7 @@ class TodoItemsRequest extends FormRequest
             'title' => 'required|string',
             'description' => 'nullable|string',
             'image' => 'nullable|image',
-            'order' => 'nullable|float',
+            'order' => 'nullable|integer',
             'priority' => 'in:high,medium,low'
         ];
     }

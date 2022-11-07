@@ -168,7 +168,7 @@ class TodoItemsController extends Controller
     }
 
     /**
-     * Upload image to public image folder and add the filePath to the model.
+     * Upload image to public image folder and return the filePath.
      *
      * @param TodoItemsRequest $request
      * @return string

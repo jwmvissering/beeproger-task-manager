@@ -15,7 +15,7 @@ export class TodoItemModel {
   createdAt: Date;
   image: string;
   priority: 'low' | 'medium' | 'high';
-  order: string;
+  order: number;
   completed: boolean;
   completedAt: Date;
 

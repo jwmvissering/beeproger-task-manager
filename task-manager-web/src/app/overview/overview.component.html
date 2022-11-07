@@ -1,15 +1,23 @@
 <div class="row gx-5">
-  <div class="col-4">
+  <div class="col-12 col-lg-5 order-2 order-lg-1">
     <div class="overview-list d-flex flex-column">
       <div class="flex-grow-1 mb-4">
-        <app-overview-list [todoItems]="todoItems"></app-overview-list>
+        <app-overview-list *ngIf="todoItems?.length; else noItems" [todoItems]="todoItems"></app-overview-list>
       </div>
       <div class="bottom">
         <button routerLink="add" class="btn btn-primary">Taak toevoegen</button>
       </div>
     </div>
   </div>
-  <div class="col">
+  <div class="col mb-4 mb-lg-0 order-1 order-lg-2">
     <router-outlet *ngIf="todoItems"></router-outlet>
   </div>
 </div>
+
+<ng-template #noItems>
+  <div class="d-flex h-100">
+    <div class="align-self-end">
+      <img src="assets/images/curved-arrow.svg" alt="Voeg je eerste taak toe" height="125" class="arrow-image">
+    </div>
+  </div>
+</ng-template>

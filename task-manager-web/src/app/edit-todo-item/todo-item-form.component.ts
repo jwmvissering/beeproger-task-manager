@@ -14,7 +14,7 @@ export class TodoItemFormComponent {
   form: FormGroup;
   fileData: File;
   previewUrl: any;
-  fileDeleted = false;
+  imageDeleted = false;
 
   constructor(private route: ActivatedRoute, private todoItemsService: TodoItemsService, private fb: FormBuilder, private router: Router) {
     if (this.route.snapshot.params['id']) {
@@ -40,13 +40,14 @@ export class TodoItemFormComponent {
     this.form = this.fb.group({
       title: this.fb.control(item ? item.title : '', [Validators.required]),
       description: this.fb.control(item ? item.description : ''),
-      priority: this.fb.control(item ? item.priority : '')
+      priority: this.fb.control(item ? item.priority : 'medium')
     })
   }
 
   onFileChange(fileInput: any): void {
     this.fileData = fileInput.target.files[0];
     this.createImagePreview();
+    this.imageDeleted = false;
   }
 
   createImagePreview(): void {
@@ -65,8 +66,7 @@ export class TodoItemFormComponent {
   deleteImage(): void {
     this.fileData = null;
     this.previewUrl = null;
-    this.todoItem.image = null; // todo: dont do this
-    this.fileDeleted = true;
+    this.imageDeleted = true;
   }
 
   submitForm(): void {
@@ -106,12 +106,14 @@ export class TodoItemFormComponent {
   private getFormData(): FormData {
     const formValues = this.form.getRawValue();
     const formData = new FormData();
+    const order = this.todoItemsService.lowestOrderOfTodoItems() - 1; // set the lowest value so the item will be on top of the list
     formData.append('title', formValues.title || '');
     formData.append('description', formValues.description || '');
     formData.append('priority', formValues.priority || '');
+    formData.append('order', this.todoItem?.order.toString() || order.toString());
     if (this.fileData) {
       formData.append('image', this.fileData);
-    } else if (this.fileDeleted) {
+    } else if (this.imageDeleted) {
       formData.append('image', '');
     }
 
